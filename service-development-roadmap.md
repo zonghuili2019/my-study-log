@@ -6,7 +6,7 @@
    3. 业务代码与公共的管理部分的代码是隔离的
 2. 第二阶段，RPC框架
    1. 将第一个阶段的多个API网关，通过名字注册与发现进行统一管理
-   2. 业务代码与公共管理部分的代码是耦合在一起的
+   2. 业务代码与公共管理部分的代码是耦合在一起的，公共管理部分的代码以SDK的形式存在
    3. 公共管理部分和RPC框架是紧密耦合在一起的
 3. 第三阶段，K8S、Istio分布式操作系统
    1. 剥离了RPC框架代码和业务代码
@@ -15,26 +15,41 @@
 
 
 
-现代toC业务的技术基础：
+现代toC/toB业务的技术基础：
 
-1. 分布式计算框架：K8S、RPC
-2. 分布式的存储框架：HDFS、HBase、Elastic Search
-3. 检索：Elastic Search
-4. 推荐：
-5. 技术指标体系：promethus，OpenTracing
-6. 业务指标体系:
+1. 分布式计算框架：K8S、RPC、SDK(Software Development Kit)
+2. 分布式的存储框架：
+   1. HDFS、HBase、Elastic Search、Ceph、
+   2. GeoMeas、GeoTrellis
+3. 事务/分布式事务：
+   1. MySQL、PostgreSQL、PostGIS
+   2. MyCat
+4. 检索：Elastic Search
+5. 推荐：
+6. 技术指标体系：
+   1. promethus
+   2. OpenTracing
+   3. logs
+7. 业务指标体系:
+8. AI、机器学习：
+   1. 用户需要的是训练好后的模型文件以及相应的API接口服务
+      1. 例如停车场的车牌识别系统；
+      2. 没必要把模型训练的能力也卖给用户，用户也不需要
+   2. 用户不需要大数据处理套件和机器学习框架，这个东西对用户业务没有价值
 
 
 
-可能的产品形态
+技术上可能的产品形态
 
-| 问题点                       | 产品    | 商业产品 | 开源软件产品      |
-| ---------------------------- | ------- | -------- | ----------------- |
-| 对API接口的管理和控制        | API网关 |          | kong、APISIX      |
-| RPC中服务运行状态未知        | 监控    |          | promethus+grafana |
-| 缓存高可用                   | Redis   |          | Redis             |
-| 关系数据的高可用、容灾、备份 | MySQL   |          | MariaDB、Percona  |
-| 关系数据的高可用、容灾、备份 | PostGIS |          | PostGIS           |
-|                              |         |          |                   |
-|                              |         |          |                   |
+| 问题点                       | 产品        | 商业产品 | 开源软件产品      |
+| ---------------------------- | ----------- | -------- | ----------------- |
+| 对API接口的管理和控制        | API网关     |          | kong、APISIX      |
+| RPC中服务运行状态未知        | 监控        |          | promethus+grafana |
+| 缓存高可用                   | Redis       |          | Redis             |
+| 关系数据的高可用、容灾、备份 | MySQL       |          | MariaDB、Percona  |
+| 关系数据的高可用、容灾、备份 | PostGIS     |          | PostGIS           |
+| 日志系统(收集、分析)         | 日志分析    |          | ELK、K8S+Sidecar  |
+| AI的产品形态(车牌识别系统)   | API接口服务 |          |                   |
+
+
 
